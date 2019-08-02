@@ -5,17 +5,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    static boolean areRequestsBeingAccepted =true;
     public static void main(String[] args) throws IOException {
 
         ServerSocket server = new ServerSocket(80);
 
 //      System.out.println("IS any one listening");
-        while (true) {
+        while (areRequestsBeingAccepted) {
             Socket socket = server.accept();
 
             Thread t;
             t = new ClientHandler(socket);
             t.start();
         }
+        server.close();
     }
 }
